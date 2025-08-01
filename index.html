@@ -1,22 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="te">
 <head>
-  <title>My GPay Logs</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GPay Logs Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+    #logContainer {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: 20px auto;
+      white-space: pre-line;
+    }
+  </style>
 </head>
 <body>
-  <h1>GPay Notifications</h1>
-  <div id="log-output">Loading...</div>
+  <h2>GPay Telegram Logs</h2>
+  <div id="logContainer">లాగ్స్ లోడ్ అవుతున్నాయి...</div>
 
   <script>
-    fetch('https://my-gpay-logs.onrender.com')
-      .then(response => response.json())
-      .then(data => {
-        document.getElementById('log-output').innerText = data.message;
-      })
-      .catch(error => {
-        document.getElementById('log-output').innerText = 'Error fetching logs';
-        console.error(error);
-      });
+    async function fetchLogs() {
+      try {
+        const res = await fetch("https://my-gpay-logs.onrender.com");
+        const data = await res.json();
+        document.getElementById("logContainer").innerText = data.message || JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById("logContainer").innerText = "లోగ్స్ తెచ్చే సమయంలో పొరపాటు: " + err.message;
+      }
+    }
+    fetchLogs();
   </script>
 </body>
 </html>
