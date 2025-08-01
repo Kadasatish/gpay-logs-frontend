@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My GPay Logs</title>
+</head>
+<body>
+  <h1>GPay Notifications</h1>
+  <div id="log-output">Loading...</div>
+
+  <script>
+    fetch('https://my-gpay-logs.onrender.com')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('log-output').innerText = data.message;
+      })
+      .catch(error => {
+        document.getElementById('log-output').innerText = 'Error fetching logs';
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
